@@ -45,40 +45,40 @@ class Mifeng(object):
         :return: Alyun client id
         """
         try:
-            self.keypair_name = os.environ["KeyPairName"]
+            self.keypair_name = os.environ["ALICLOUD_KEYPAIR_NAME"]
         except:
-            logger.error("KeyPairName environment variable not set")
+            logger.error("ALICLOUD_KEYPAIR_NAME environment variable not set")
             quit()
         try:
-            self.access_key_id = os.environ["AccessKeyId"]
+            self.access_key_id = os.environ["ALICLOUD_ACCESS_KEY"]
         except:
-            logger.error("AccessKeyId environment variable not set")
+            logger.error("ALICLOUD_ACCESS_KEY environment variable not set")
             quit()
         try:
-            self.access_secret = os.environ["AccessKeySecret"]
+            self.access_secret = os.environ["ALICLOUD_SECRET_KEY"]
         except:
-            logger.error("AccessKeySecret not set")
+            logger.error("ALICLOUD_SECRET_KEY not set")
             quit()
         logger.info("Retrieved the access key id and secret")
         try:
-            self.region = os.environ["Region"]
+            self.region = os.environ["MIFENG_REGION"]
         except:
-            logger.error("Region environment variable not set")
+            logger.error("MIFENG_REGION environment variable not set")
             quit()
         try:
-            self.security_group = os.environ["SecurityGroup"]
+            self.security_group = os.environ["MIFENG_SECURITY_GROUP"]
         except:
-            logger.error("SecurityGroup environment variable not set")
+            logger.error("MIFENG_SECURITY_GROUP environment variable not set")
             quit()
         try:
-            self.vswitch = os.environ["VSwitch"]
+            self.vswitch = os.environ["MIFENG_VSWITCH"]
         except:
-            logger.error("VSwitch environment variable not set")
+            logger.error("MIFENG_VSWITCH environment variable not set")
             quit()
         try:
-            self.ssh_key = os.environ["SSHKey"]
+            self.ssh_key = os.environ["MIFENG_SSH_KEY"]
         except:
-            logger.error("SSHKey variable not set")
+            logger.error("MIFENG_SSH_KEY variable not set")
             quit()
         try:
             client = AcsClient(self.access_key_id, self.access_secret, self.region)
