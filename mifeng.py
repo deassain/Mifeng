@@ -1,8 +1,7 @@
 from aliyunsdkcore.client import AcsClient
-from aliyunsdkcore.acs_exception.exceptions import ClientException
-from aliyunsdkcore.acs_exception.exceptions import ServerException
-from aliyunsdkecs.request.v20140526 import CreateInstanceRequest, DeleteInstanceRequest, RunInstancesRequest, \
-    CreateSecurityGroupRequest, DescribeInstancesRequest, DescribeInstanceStatusRequest
+
+from aliyunsdkecs.request.v20140526 import  DeleteInstanceRequest, RunInstancesRequest, \
+DescribeInstancesRequest, DescribeInstanceStatusRequest
 import os, logging, json,math
 import paramiko
 from threading import Thread
@@ -140,7 +139,6 @@ class Mifeng(object):
                 request.set_PageSize(50)
                 response = self.client.do_action_with_exception(request)
                 jsonify = json.loads(response)
-                print "2   %s" % jsonify
                 result["Instances"]["Instance"] = result["Instances"]["Instance"] + jsonify["Instances"]["Instance"]
                 page = page + 1
         return result
@@ -150,10 +148,8 @@ class Mifeng(object):
         :param instance_list: the list of instance ids for which the info needs to be retrieved
         :return: list of tuples (instance_name, ip_address)
         """
-        print instance_list
         x = self.get_instance_description(instance_list)
         instances = x["Instances"]["Instance"]
-        print instances
         hosts = list()
         for i in instances:
             hosts.append((i["InstanceId"], i["PublicIpAddress"]["IpAddress"][0]), )
@@ -219,9 +215,9 @@ class Mifeng(object):
         # Create a threadlist and subsequently execute instaling tools concurently in each machine, subsequently join the threads before proceeding
         thread_list = list()
         ip_addresses = self.get_ip_addresses()
-        print "[+] Executing in %s ip address"%len(ip_addresses)
+        logger.info("Executing in %s ip address"%len(ip_addresses))
         result_list = list()
-        print ip_addresses
+        logger.debug(ip_addresses)
         for ip in ip_addresses:
             t = ThreadWithReturnValue(target=self._execute_ssh_command, args=(ip,command))
             thread_list.append(t)
@@ -231,7 +227,7 @@ class Mifeng(object):
         return result_list
 
     def _upload_file_on_all_wasps(self,file_path):
-        print file_path
+        logger.debug("File path: %s " % file_path)
         thread_list = list()
         ip_addresses = self.get_ip_addresses()
         result_list = list()
@@ -257,7 +253,19 @@ class Mifeng(object):
         self._execute_on_all_wasps(ab_command)
 
     def run_ab_post(self,url,file_path):
-        print "uploading file"
+        logger.info( "uploading file")
         self._upload_file_on_all_wasps(file_path)
         ab_command = 'ab -t 900 -n 1000000 -c 20 -p /tmp/post.data -H "User-Agent: Mozilla/5.0 (Windows NT 6.1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/43.0.2357.81 Safari/537.36" %s' % url
         self._execute_on_all_wasps(ab_command)
+
+    @staticmethod
+    def validate_url(url):
+        if 'https://' == url[0:8] or 'http://' == url[0:7]:
+            if url.count('/') > 2:
+                return True
+            else:
+                return False
+        else:
+            return False
+
+

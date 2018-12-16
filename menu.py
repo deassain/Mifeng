@@ -52,32 +52,40 @@ def _get_wasp_status():
             else:
                 res_dict[x["Status"]] = 1
         for y in res_dict.keys():
-            print "[+]"+ y + ": %s\n" % res_dict[y]
+            print "\n\n[+]"+ y + ": %s\n" % res_dict[y]
     else:
-        print "[-] No instances running."
+        print "\n\n[-] No instances running."
     menu_actions['main_menu']()
 
 
 def _swarm():
-    url = raw_input("Please enter the URL to be submitted to the Hive.")
-    confirm_ah = raw_input("Are you sure you want to submit %s to the Hive (y/n)?"%url)
-    if confirm_ah == "y":
-        mf.run_ab_get(url)
-        menu_actions['main_menu']()
+    url = raw_input("Please enter the URL to be submitted to the Hive.\n")
+    if Mifeng.validate_url(url):
+        confirm = raw_input("Are you sure you want to submit %s to the Hive (y/n)?"%url)
+        if confirm == "y":
+            mf.run_ab_get(url)
+            menu_actions['main_menu']()
+        else:
+            menu_actions['main_menu']()
     else:
-        menu_actions['main_menu']()
+        print "Invalid URL, must be in the format of http://example.com/ with a trailing slash after the domain."
+        _swarm()
 
 
 def _swarm_post():
-    url = raw_input("Please enter the URL to be submitted to the Hive.")
-    post_path = raw_input("Please submit the POST file location to be uploaded.")
-    confirm_ah = raw_input("Are you sure you want to submit %s to the Hive (y/n)?"%url)
-    if confirm_ah == "y":
-        print "submitting post"
-        mf.run_ab_post(url,post_path)
-        menu_actions['main_menu']()
+    url = raw_input("Please enter the URL to be submitted to the Hive.\n")
+    if Mifeng.validate_url(url):
+        post_path = raw_input("Please submit the POST file location to be uploaded.\n")
+        confirm = raw_input("Are you sure you want to submit %s to the Hive (y/n)?\n"%url)
+        if confirm == "y":
+            print "submitting post"
+            mf.run_ab_post(url,post_path)
+            menu_actions['main_menu']()
+        else:
+            menu_actions['main_menu']()
     else:
-        menu_actions['main_menu']()
+        print "Invalid URL, must be in the format of http://example.com/ with a trailing slash after the domain."
+        _swarm_post()
 
 def _swarm_post_random():
     url = raw_input("Please enter the URL to be submitted to the Hive.")
@@ -99,9 +107,9 @@ def main_menu():
     print "2. Get wasp status"
     print "3. Kill all wasps"
     print "4. Install tools"
-    print "5. Run GET requests against URL"
-    print "6. Run POST requests against URL"
-    print "7. Run random POST requests against URL"
+    print "5. Run GET requests against URL "
+    print "6. Run POST requests against URL "
+    print "7. Run random POST requests against URL "
     print "\n0. Quit"
     choice = raw_input(">>  ")
     exec_menu(choice)
