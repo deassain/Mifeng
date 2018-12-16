@@ -37,7 +37,7 @@ export ALICLOUD_KEYPAIR_NAME="my_keypair_name"
 
 
 ## Using the script
-When using the script you will have a few options:
+When using the script (run menu.py) you will have a few options:
 
 
 ```
