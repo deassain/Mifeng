@@ -68,7 +68,8 @@ To use the script you first spin up the `monitor.py` script on your local machin
 |3. Kill all wasps| This will kill all your machines that are running on the vswitch.|
 |4. Install Tools|Once the machines are running, proceed with installing the tools with option 3. This will deploy all required tools (including apache bench, etc...). Note that there is no check in the script to verify if the tools have been installed. So if you get errors or don't see requests while running the POST requests, this may be due to tools still being installed.|
 |5. Run GET Requests| This will run a lot of GET Requests for the given URL on the machine. If you are providing a URL without page, you should include a trailing `/`: http://example.com (won't work), but http://example.com/ (works). This is a limitation from Apache Bench unfortunately. |
-|6. Run POST Requests| For this item you need to prepare a POST requests file on your local machine.
+|6. Run POST Requests| For this item you need to prepare a POST requests file on your local machine compliant with the Apache Bench format.|
+|7. Run random POST requests| This generates a random POST file with the maximum size for a POST requests. The idea is that random POST requests are generated and submitted to the application with an overly large size (exhausting the webserver).|
 
 ## Gotchas on Aliyun when not using a business account
 - Aliyun will allow you to only spin up a few instances, you should, after creating an account, verify your account with Aliyun by uploading your personal information. For instance passports.
