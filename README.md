@@ -71,7 +71,7 @@ To use the script you first spin up the `monitor.py` script on your local machin
 The hardcoded values currently include the Apache Bench commands:
 - The default image used is the ubuntu_16_0402_32_20G_alibase_20180409.vhd
 - The instance type is ecs.t5-lc2m1.nano which is a burstable instance with 1 CPU and 512 MB of memory. This is sufficient for ab as it is single threaded.
-- The apache bench command is hardcoded too, if you want to change it (for now at least) you will need to add it in the config.
+- The apache bench command is hardcoded too, if you want to change it (for now at least) you will need to add it in the file.
 
 
 ## Gotchas on Aliyun when not using a business account
