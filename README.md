@@ -15,13 +15,13 @@ To use the tool there are a number of environment variables that need to be set:
 
 | Environment Variables| Explanation           |
 | ------------- |-------------|
-| AccessKeyId    | [This is your Aliyun AccessKeyId](https://www.alibabacloud.com/help/doc-detail/29009.htm)  |
-| AccessKeySecret  | This is the secret that's used together with your Id    |
-| SecurityGroup | You will need to create a [Security Group](https://www.alibabacloud.com/help/doc-detail/25468.htm), the security group dictates what ports will be allowed to be open, you should make sure you allow port 22 (SSH).     |
-| KeyPairName | When you configure Aliyun, you need to create a [keypair](https://partners-intl.aliyun.com/help/doc-detail/51793.htm). The keypair is used for public key authentication.  |
-| VSwitch | The [VSwitch](https://www.alibabacloud.com/help/doc-detail/65387.htm) is used to dictate in what network you will deploy your instances and is Region dependant. Make sure that you deploy your instances in a dedicated VSwitch. The tear down operation of the script doesn't discriminate on instances and doesn't track the ID of the instances it created. Therefore if you mix these instances with existing instances, your existing instances may be deleted.     |
-| Region | The [region](https://www.alibabacloud.com/help/doc-detail/40654.htm) is used to configure where the instances should be deployed. |
-| SSHKey | This is the path to the SSH key on your machine associated with the KeyPairName you configured in Aliyun and set in the environment variable above.      |
+| ALICLOUD_ACCESS_KEY   | [This is your Aliyun AccessKeyId](https://www.alibabacloud.com/help/doc-detail/29009.htm)  |
+| ALICLOUD_SECRET_KEY  | This is the secret that's used together with your Id    |
+| MIFENG_SECURITY_GROUP | You will need to create a [Security Group](https://www.alibabacloud.com/help/doc-detail/25468.htm), the security group dictates what ports will be allowed to be open, you should make sure you allow port 22 (SSH).     |
+| MIFENG_VSWITCH | When you configure Aliyun, you need to create a [keypair](https://partners-intl.aliyun.com/help/doc-detail/51793.htm). The keypair is used for public key authentication.  |
+| MIFENG_REGION | The [VSwitch](https://www.alibabacloud.com/help/doc-detail/65387.htm) is used to dictate in what network you will deploy your instances and is Region dependant. Make sure that you deploy your instances in a dedicated VSwitch. The tear down operation of the script doesn't discriminate on instances and doesn't track the ID of the instances it created. Therefore if you mix these instances with existing instances, your existing instances may be deleted.     |
+| ALICLOUD_REGION| The [region](https://www.alibabacloud.com/help/doc-detail/40654.htm) is used to configure where the instances should be deployed. |
+| IFENG_SSH_KEY | This is the path to the SSH key on your machine associated with the KeyPairName you configured in Aliyun and set in the environment variable above.      |
 
 
 ## Gotchas on Aliyun when not using a business account
@@ -29,4 +29,28 @@ To use the tool there are a number of environment variables that need to be set:
 - You will only be able to spin up a handful of servers, you need to request them to increase the amount of instances you can spin up. In my case I managed to get them to allow to spin up to 80 instances.
 
 ## Using the script
-When using the script you will have a few options
+When using the script you will have a few options:
+
+
+```
+            _  _
+           | )/ )
+        \ |//,' __
+        (")(_)-"()))=-
+           (\
+
+
+1. Release the wasps
+2. Get wasp status
+3. Kill all wasps
+4. Install tools
+5. Run GET requests against URL 
+6. Run POST requests against URL 
+7. Run random POST requests against URL 
+
+0. Quit
+```
+
+To use the script you first 
+
+
