@@ -1,11 +1,6 @@
 # Mifeng
 A load testing tool inspired on Bees with Machine Guns targetted at leveraging Aliyun. Aliyun is Alibaba's cloud environment. I wanted to learn more about how they operate and the services they provide. The tool I wrote is inspired on [Bees with Machine Guns](https://github.com/newsapps/beeswithmachineguns), which is a load testing tool written leveraging Amazon AWS.
 
-## Some hard-coded values
-The hardcoded values currently include the Apache Bench commands:
-- The default image used is the ubuntu_16_0402_32_20G_alibase_20180409.vhd
-- The instance type is ecs.t5-lc2m1.nano which is a burstable instance with 1 CPU and 512 MB of memory. This is sufficient for ab as it is single threaded.
-
 
 ## Environment variables
 To use the tool there are a number of environment variables that need to be set:
@@ -37,7 +32,7 @@ export ALICLOUD_KEYPAIR_NAME="my_keypair_name"
 
 
 ## Using the script
-When using the script you will have a few options:
+When using the script (run menu.py) you will have a few options:
 
 
 ```
@@ -70,6 +65,14 @@ To use the script you first spin up the `monitor.py` script on your local machin
 |5. Run GET Requests| This will run a lot of GET Requests for the given URL on the machine. If you are providing a URL without page, you should include a trailing `/`: http://example.com (won't work), but http://example.com/ (works). This is a limitation from Apache Bench unfortunately. |
 |6. Run POST Requests| For this item you need to prepare a POST requests file on your local machine compliant with the Apache Bench format.|
 |7. Run random POST requests| This generates a random POST file with the maximum size for a POST requests. The idea is that random POST requests are generated and submitted to the application with an overly large size (exhausting the webserver).|
+
+
+## Some hard-coded values
+The hardcoded values currently include the Apache Bench commands:
+- The default image used is the ubuntu_16_0402_32_20G_alibase_20180409.vhd
+- The instance type is ecs.t5-lc2m1.nano which is a burstable instance with 1 CPU and 512 MB of memory. This is sufficient for ab as it is single threaded.
+- The apache bench command is hardcoded too, if you want to change it (for now at least) you will need to add it in the file.
+
 
 ## Gotchas on Aliyun when not using a business account
 - Aliyun will allow you to only spin up a few instances, you should, after creating an account, verify your account with Aliyun by uploading your personal information. For instance passports.
